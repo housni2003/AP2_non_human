@@ -50,6 +50,7 @@ async def get_shipping_address(
   )
   task = await credentials_provider_client.send_a2a_message(message)
   shipping_address = artifact_utils.only(_parse_addresses(task.artifacts))
+
   return shipping_address
 
 

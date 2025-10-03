@@ -66,6 +66,14 @@ class IntentMandate(BaseModel):
           "A list of specific product SKUs. If not set, any SKU is allowed."
       ),
   )
+  price_range_min: Optional[float] = Field(
+        None,
+        description="Minimum acceptable price for the purchase intent.",
+    )
+  price_range_max: Optional[float] = Field(
+        None,
+        description="Maximum acceptable price for the purchase intent.",
+    )
   requires_refundability: Optional[bool] = Field(
       False,
       description="If true, items must be refundable.",
@@ -191,7 +199,7 @@ class PaymentMandate(BaseModel):
             "aud": ...
             "nonce": ...
             "sd_hash": hash of the issuer-signed jwt
-            "transaction_data": an array containing the secure hashes of 
+            "transaction_data": an array containing the secure hashes of
               CartMandate and PaymentMandateContents.
 
           """

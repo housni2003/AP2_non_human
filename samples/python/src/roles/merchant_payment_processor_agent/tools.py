@@ -56,14 +56,6 @@ async def initiate_payment(
   challenge_response = (
       message_utils.find_data_part("challenge_response", data_parts) or ""
   )
-  await _handle_payment_mandate(
-      PaymentMandate.model_validate(payment_mandate),
-      challenge_response,
-      updater,
-      current_task,
-      debug_mode,
-  )
-
 
 async def _handle_payment_mandate(
     payment_mandate: PaymentMandate,

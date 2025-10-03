@@ -21,6 +21,7 @@ shopping and purchasing process.
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
+from typing import Optional
 
 from a2a.types import Artifact
 from google.adk.tools.tool_context import ToolContext
@@ -40,6 +41,8 @@ def create_intent_mandate(
     merchants: list[str],
     skus: list[str],
     requires_refundability: bool,
+    price_range_min: Optional[float],
+    price_range_max: Optional[float],
     tool_context: ToolContext,
 ) -> IntentMandate:
   """Creates an IntentMandate object.
@@ -50,16 +53,20 @@ def create_intent_mandate(
     merchants: A list of allowed merchants.
     skus: A list of allowed SKUs.
     requires_refundability: If the items must be refundable.
+    price_range_min: Minimum acceptable price for the purchase intent.
+    price_range_max: Maximum acceptable price for the purchase intent.
     tool_context: The ADK supplied tool context.
 
   Returns:
-    An IntentMandate object valid for 1 day.
+    An IntentMandate object valid.
   """
   intent_mandate = IntentMandate(
       natural_language_description=natural_language_description,
       user_cart_confirmation_required=user_cart_confirmation_required,
       merchants=merchants,
       skus=skus,
+      price_range_min=price_range_min,      # Add this
+      price_range_max=price_range_max,      # Add this
       requires_refundability=requires_refundability,
       intent_expiry=(
           datetime.now(timezone.utc) + timedelta(days=1)
